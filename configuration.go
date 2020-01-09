@@ -49,11 +49,12 @@ func readConfig(profile string, configDir string) {
 func readFile(fileName string, pointer interface{}) {
 	file, err := ioutil.ReadFile(fileName)
 	if err != nil {
-		panic(err)
+		logMessage(WARN, fmt.Sprintf("could not open configuration file %s: %s", fileName, err.Error()))
+		return
 	}
 
 	if e := yaml.Unmarshal(file, pointer); e != nil {
-		panic(e)
+		logMessage(ERROR, fmt.Sprintf("could not unmarshal configuration file %s: %s", fileName, e.Error()))
 	}
 }
 
