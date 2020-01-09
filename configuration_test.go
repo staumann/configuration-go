@@ -23,4 +23,11 @@ func TestHandlingConfig(t *testing.T) {
 
 	assert.Equal(t, "toll", GetString("foobar"))
 	assert.True(t, GetBooleanWithDefaultValue("lorem.ipsum", false))
+
+	tenant := "tenant1"
+
+	cfg := GetSubConfig("tenants." + tenant)
+
+	assert.Equal(t, "t1", cfg.GetString("id"))
+
 }

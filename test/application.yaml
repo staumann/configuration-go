@@ -2,6 +2,13 @@ projectId: general-project
 appName: foobar
 server:
   port: 8888
+tenants:
+  tenant1:
+    id: t1
+    import: true
+  tenant2:
+    id: t2
+    import: false
 nested:
   more:
     extrem:
