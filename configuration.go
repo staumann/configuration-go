@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"strings"
 )
 
 const (
@@ -60,6 +61,10 @@ func readFile(fileName string, pointer interface{}) {
 
 //AddMapToConfig adds the given map like a configfile
 func AddMapToConfig(prefix string, customCfg map[string]interface{}) {
+	//if there is no trailing dot add one
+	if !strings.HasSuffix(".", prefix) {
+		prefix = prefix + "."
+	}
 	processConfig(prefix, customCfg, nil)
 }
 
