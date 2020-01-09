@@ -37,8 +37,8 @@ func Init(profile, configDir string, logLevel LogLevel) {
 }
 
 func readConfig(profile string, configDir string) {
-	newConfig := make(map[interface{}]interface{})
-	newProfileConfig := make(map[interface{}]interface{})
+	newConfig := make(map[string]interface{})
+	newProfileConfig := make(map[string]interface{})
 
 	readFile(fmt.Sprintf(defaultConfigurationFileNamePattern, configDir), &newConfig)
 	readFile(fmt.Sprintf(profileConfigurationFilePattern, configDir, profile), &newProfileConfig)
@@ -59,37 +59,55 @@ func readFile(fileName string, pointer interface{}) {
 }
 
 //AddMapToConfig adds the given map like a configfile
-func AddMapToConfig(prefix string, customCfg map[interface{}]interface{}) {
+func AddMapToConfig(prefix string, customCfg map[string]interface{}) {
 	processConfig(prefix, customCfg, nil)
 }
 
-func processConfig(prefix string, general, profile map[interface{}]interface{}) {
+func processConfig(prefix string, general, profile map[string]interface{}) {
 	for key, value := range general {
-		keyString := key.(string)
+		keyString := key
 		cfgKey := prefix + keyString
 		switch value.(type) {
-		case map[interface{}]interface{}:
+		case map[string]interface{}, map[interface{}]interface{}:
 			pV := profile[key]
 			if pV == nil {
 				pV = make(map[interface{}]interface{})
 			}
-			processConfig(cfgKey+".", value.(map[interface{}]interface{}), pV.(map[interface{}]interface{}))
+			processConfig(cfgKey+".", checkAndConvertMap(value), checkAndConvertMap(pV))
 			break
 		case string, int, bool:
 			if profile != nil {
 				if v, ok := profile[key]; ok {
 					configMap[cfgKey] = v
-					logMessage(DEBUG, fmt.Sprintf("new config value for key %s : %v", cfgKey, v))
+					logMessage(DEBUG, fmt.Sprintf("new profile config value for key %s : %v", cfgKey, v))
 					break
 				}
 			}
 			configMap[cfgKey] = value
-			logMessage(DEBUG, fmt.Sprintf("new config value for key %s : %v", cfgKey, value))
+			logMessage(DEBUG, fmt.Sprintf("new global config value for key %s : %v", cfgKey, value))
 			break
 		default:
 			logMessage(ERROR, fmt.Sprintf("unregonized configuration type for value: %v", value))
 		}
 	}
+}
+
+func checkAndConvertMap(source interface{}) map[string]interface{} {
+	var target map[string]interface{}
+	switch source.(type) {
+	case map[string]interface{}:
+		target = source.(map[string]interface{})
+		break
+	case map[interface{}]interface{}:
+		target = make(map[string]interface{})
+		for k, v := range source.(map[interface{}]interface{}) {
+			target[k.(string)] = v
+		}
+		break
+	default:
+		logMessage(WARN, "passed interface is no valid map")
+	}
+	return target
 }
 
 //GetString get's a config string value from the configuration. if the key was not found we return "".
