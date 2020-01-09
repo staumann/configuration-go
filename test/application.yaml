@@ -1,0 +1,18 @@
+projectId: general-project
+appName: foobar
+server:
+  port: 8888
+nested:
+  more:
+    extrem:
+      isNested: true
+      super:
+        extrem:
+          fancy: not
+          useFull: false
+database:
+  settingsCollection: default_table
+auth:
+  enabled: true
+  address: https://vault.fancy.de
+  vaultPath: general/vault/apth

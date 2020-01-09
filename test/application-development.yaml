@@ -1,0 +1,13 @@
+projectId: development-project
+database:
+  settingsCollection: dev_table
+nested:
+  more:
+    extrem:
+      super:
+        extrem:
+          fancy: cool
+          useFull: true
+auth:
+  enabled: false
+  address: https://development.vault.fancy.de
