@@ -132,7 +132,7 @@ func (cfg ConfigurationObject) GetInteger(key string) int {
 	return cfg.GetIntegerWithDefaultValue(key, 0)
 }
 
-//GetInteger get's a integer from the configuration. if the key does not exists the default value is returned
+//GetIntegerWithDefaultValue get's a integer from the configuration. if the key does not exists the default value is returned
 func (cfg ConfigurationObject) GetIntegerWithDefaultValue(key string, defaultValue int) int {
 	return cfg.GetValueWithDefaultValue(key, defaultValue).(int)
 }
