@@ -59,8 +59,8 @@ func readFile(fileName string, pointer interface{}) {
 }
 
 //AddMapToConfig adds the given map like a configfile
-func AddMapToConfig(customCfg map[interface{}]interface{}) {
-	processConfig("", customCfg, nil)
+func AddMapToConfig(prefix string, customCfg map[interface{}]interface{}) {
+	processConfig(prefix, customCfg, nil)
 }
 
 func processConfig(prefix string, general, profile map[interface{}]interface{}) {

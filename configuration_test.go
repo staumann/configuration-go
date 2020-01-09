@@ -14,7 +14,7 @@ func TestHandlingConfig(t *testing.T) {
 	assert.False(t, GetBoolean("auth.enabled"))
 	assert.True(t, GetBooleanWithDefaultValue("auth.enabled.new", true))
 
-	AddMapToConfig(map[interface{}]interface{}{
+	AddMapToConfig("", map[interface{}]interface{}{
 		"foobar": "toll",
 		"lorem": map[interface{}]interface{}{
 			"ipsum": true,
