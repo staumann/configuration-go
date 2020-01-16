@@ -160,6 +160,16 @@ func (cfg ConfigurationObject) GetValueWithDefaultValue(key string, defaultValue
 	return defaultValue
 }
 
+//GetKeys get's the key of the current config
+func (cfg ConfigurationObject) GetKeys() []string {
+	keys := make([]string, 0)
+	for key, _ := range cfg.configMap {
+		keys = append(keys, key)
+	}
+
+	return keys
+}
+
 //GetSubConfig returns a subConfig object for the given key
 func (cfg ConfigurationObject) GetSubConfig(key string) ConfigurationObject {
 	if !strings.HasSuffix(key, ".") {
@@ -223,4 +233,9 @@ func GetSubConfig(key string) ConfigurationObject {
 //AddMapToConfig adds the given map like a configfile
 func AddMapToConfig(prefix string, customCfg map[string]interface{}) {
 	defaultConfig.AddMapToConfig(prefix, customCfg)
+}
+
+//GetKeys get's the keys from the default config
+func GetKeys() []string {
+	return defaultConfig.GetKeys()
 }

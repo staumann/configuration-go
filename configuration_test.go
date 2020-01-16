@@ -29,5 +29,9 @@ func TestHandlingConfig(t *testing.T) {
 	cfg := GetSubConfig("tenants." + tenant)
 
 	assert.Equal(t, "t1", cfg.GetString("id"))
+	keys := cfg.GetKeys()
+
+	assert.Equal(t, 2, len(keys))
+	assert.Equal(t, "id", keys[0])
 
 }
