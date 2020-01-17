@@ -3,24 +3,29 @@
 ## What is this?
 This is a simple configuration framework for yaml files
 
-##How to use
+## How to use
 
-###Init
+### Init
 ````go
     config.Init("development","/",WARN)
 ````
-###Get String
+### Get String
 ````go
     config.GetString("fancy.key")
     config.GetStringWithDefault("fancy.key","defaultValue")
 ````
-###Get boolean
+### Get boolean
 ````go
     config.GetBoolean("fancy.boolean.key")
     config.GetBooleanWithDefault("fancy.boolean.key", false)
 ````
-###Get integer
+### Get integer
 ````go
     config.GetInteger("fancy.integer.key")
     config.GetIntegerWithDefault("fancy.integer.key", 55)
+````
+
+### Get subconfig
+````go
+    config.GetSubConfig("prefix")
 ````
