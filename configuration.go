@@ -163,7 +163,7 @@ func (cfg ConfigurationObject) GetValueWithDefaultValue(key string, defaultValue
 //GetKeys get's the key of the current config
 func (cfg ConfigurationObject) GetKeys() []string {
 	keys := make([]string, 0)
-	for key, _ := range cfg.configMap {
+	for key := range cfg.configMap {
 		keys = append(keys, key)
 	}
 
@@ -188,12 +188,12 @@ func (cfg ConfigurationObject) GetSubConfig(key string) ConfigurationObject {
 //GetFirstLevelKeys returns a list of first level key's
 func (cfg ConfigurationObject) GetFirstLevelKeys() []string {
 	tmp := make(map[string]bool)
-	for k, _ := range cfg.configMap {
+	for k := range cfg.configMap {
 		tmp[strings.Split(k, ".")[0]] = true
 	}
 	firstLevelKeys := make([]string, len(tmp))
 	counter := 0
-	for k, _ := range tmp {
+	for k := range tmp {
 		firstLevelKeys[counter] = k
 		counter++
 	}
