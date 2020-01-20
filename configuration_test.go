@@ -37,7 +37,7 @@ func TestHandlingConfig(t *testing.T) {
 
 	firstLevelKeys := GetFirstLevelKeys()
 
-	assert.Equal(t, 16, len(firstLevelKeys))
+	assert.Equal(t, 9, len(firstLevelKeys))
 	log.Printf("%v", firstLevelKeys)
 
 }
