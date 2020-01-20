@@ -29,3 +29,13 @@ This is a simple configuration framework for yaml files
 ````go
     config.GetSubConfig("prefix")
 ````
+
+### Get Keys
+````go
+    config.GetKeys()
+````
+
+### Get Keys
+````go
+    config.GetFirstLevelKeys()
+````

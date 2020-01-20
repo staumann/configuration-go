@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/stretchr/testify/assert"
+	"log"
 	"testing"
 )
 
@@ -32,6 +33,11 @@ func TestHandlingConfig(t *testing.T) {
 	keys := cfg.GetKeys()
 
 	assert.Equal(t, 2, len(keys))
-	assert.Equal(t, "id", keys[0])
+	assert.Contains(t, keys, "id")
+
+	firstLevelKeys := GetFirstLevelKeys()
+
+	assert.Equal(t, 16, len(firstLevelKeys))
+	log.Printf("%v", firstLevelKeys)
 
 }

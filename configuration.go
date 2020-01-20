@@ -185,6 +185,22 @@ func (cfg ConfigurationObject) GetSubConfig(key string) ConfigurationObject {
 	return subConfig
 }
 
+//GetFirstLevelKeys returns a list of first level key's
+func (cfg ConfigurationObject) GetFirstLevelKeys() []string {
+	tmp := make(map[string]bool)
+	for k, _ := range cfg.configMap {
+		tmp[strings.Split(k, ".")[0]] = true
+	}
+	firstLevelKeys := make([]string, len(tmp))
+	counter := 0
+	for k, _ := range tmp {
+		firstLevelKeys[counter] = k
+		counter++
+	}
+
+	return firstLevelKeys
+}
+
 //GetString get's a config string value from the configuration. if the key was not found we return "".
 func GetString(key string) string {
 	return defaultConfig.GetString(key)
@@ -238,4 +254,9 @@ func AddMapToConfig(prefix string, customCfg map[string]interface{}) {
 //GetKeys get's the keys from the default config
 func GetKeys() []string {
 	return defaultConfig.GetKeys()
+}
+
+//GetFirstLevelKeys returns a list of first level key's
+func GetFirstLevelKeys() []string {
+	return defaultConfig.GetFirstLevelKeys()
 }
